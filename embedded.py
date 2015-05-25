@@ -1,4 +1,6 @@
 import mraa
+import time
+
 
 led_pins = { 'r': 4, 'g': 3, 'b': 2 }
 
@@ -17,6 +19,6 @@ def leds_turnoff():
 
 while True:
     leds_turnon()
-    time.sleep(0.1)
-    leds_turnoff
-    time.sleep(0.1)
+    time.sleep(0.5)
+    leds_turnoff()
+    time.sleep(0.5)
