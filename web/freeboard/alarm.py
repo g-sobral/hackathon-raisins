@@ -9,9 +9,9 @@ ed = Edison()
 
 def notify(led, alarm_id): 
 
-	urllib2.urlopen("http://192.168.1.129:5000/set/alarm/" + str(alarm_id)).read()
+	urllib2.urlopen("http://192.168.1.129:5000/set/alarm/" + str(alarm_id) + "/1").read()
 	bot.send_telegram_message("O Sr Edison deve tomar o remedio!")
-	ed.turn_led_on(led, alarm_id)
+	ed.turn_led_on(led)
 	ed.play_buzzer()
 
 	# Check button
@@ -37,7 +37,7 @@ str(int(late))).read()
 	urllib2.urlopen("http://192.168.1.129:5000/disable/alarm/" + str(alarm_id)).read()
 	return
 
-def start_alarm(delay, led):
+def start_alarm(delay, led, alarm_id):
 	urllib2.urlopen("http://192.168.1.129:5000/set/alarm/" + str(alarm_id) + "/-1").read()
 	s.enter(delay, 1, notify, (led, alarm_id))
 	s.run()
