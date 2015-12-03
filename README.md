@@ -1,2 +1,2 @@
-# hackaton-raisins
-"Raisins" team repository on Eldorado's Hackaton 2015
+# hackathon-raisins
+"Raisins" team repository on Eldorado's Hackathon 2015
