@@ -7,17 +7,18 @@ import hackeld_bot as bot
 s = sched.scheduler(time.time, time.sleep)
 ed = Edison()
 
-def notify(led): 
-	urllib2.urlopen("http://192.168.1.129:5000/set/alarm/1/1").read()
+def notify(led, alarm_id): 
+
+	urllib2.urlopen("http://192.168.1.129:5000/set/alarm/" + str(alarm_id)).read()
 	bot.send_telegram_message("O Sr Edison deve tomar o remedio!")
-	ed.turn_led_on(led)
+	ed.turn_led_on(led, alarm_id)
 	ed.play_buzzer()
-	
+
 	# Check button
-	check_alarm(led)
+	check_alarm(led, alarm_id)
 	return
 
-def check_alarm(led):
+def check_alarm(led, alarm_id):
 
 	# Keep pooling button
 	start = time.time()
@@ -27,22 +28,23 @@ def check_alarm(led):
 		late = now - start
 		ctrl = now - prev
 		if ctrl  > 1:
-			urllib2.urlopen("http://192.168.1.129:5000/set/alarm/1/" + 
+			urllib2.urlopen("http://192.168.1.129:5000/set/alarm/" + str(alarm_id) +  "/" + 
 str(int(late))).read()
 			prev = now
 
 	ed.turn_led_off(led)
 	bot.send_telegram_message("Remedio Tomado Direitinho ;)")
-	urllib2.urlopen("http://192.168.1.129:5000/disable/alarm/1").read()
+	urllib2.urlopen("http://192.168.1.129:5000/disable/alarm/" + str(alarm_id)).read()
 	return
 
 def start_alarm(delay, led):
-	urllib2.urlopen("http://192.168.1.129:5000/set/alarm/1/-1").read()
-	s.enter(delay, 1, notify, (led))
+	urllib2.urlopen("http://192.168.1.129:5000/set/alarm/" + str(alarm_id) + "/-1").read()
+	s.enter(delay, 1, notify, (led, alarm_id))
 	s.run()
 	return
 
 def main():
+
 	# Define alarm
 	h = 0
 	m = 0
@@ -55,13 +57,13 @@ def main():
 	delay = (run_at - now).total_seconds()
 
 	# Start alarm 1
-	start_alarm(delay, 'r')
+	start_alarm(delay, 'r', 1)
 
 	# Start alarm 2
-	start_alarm(delay + step, 'g')
+	start_alarm(delay + step, 'g', 2)
 
 	# Start alarm 3
-	start_alarm(delay + 2*step, 'b')
+	start_alarm(delay + 2*step, 'b', 3)
 	return
 
 if __name__ == '__main__':
