@@ -52,7 +52,7 @@ class Edison:
 
 
 # test
-if __name__ == __main__:
+if __name__ == '__main__':
 
     ed = Edison()
 

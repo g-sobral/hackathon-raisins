@@ -4,7 +4,6 @@ from flask import *
 from embedded import Edison
 
 app = Flask(__name__,static_folder='',static_url_path='')
-
 ed = Edison()
 
 @app.route('/get/date', methods=['GET'])
@@ -48,6 +47,26 @@ def set_alarm(alarm_id,time):
     alarmTimes[alarm_id] = int(time)
     return ""
 
+@app.route('/set/led/<led>', methods=['GET'])
+def set_alarm(led):
+    ed.turn_led_on(led)
+    return 'ok'
+
+@app.route('/unset/led/<led>', methods=['GET'])
+def set_alarm(led):
+    ed.turn_led_off(led)
+    return 'ok'
+
+@app.route('/get/button', methods=['GET'])
+def set_alarm():
+    b = ed.read_button()
+    return jsonify({'button': b})
+
+@app.route('/play/buzzer', methods=['GET'])
+def set_alarm():
+    ed.play_buzzer()
+    return "ok"
+
 @app.route('/dashboard', methods=['GET'])
 def get_dashboard():
     # return send_from_directory('','index.html')
@@ -57,4 +76,4 @@ def get_dashboard():
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='192.168.1.180')
+    app.run(debug=True,host='192.168.1.129')
