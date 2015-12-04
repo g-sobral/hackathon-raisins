@@ -54,4 +54,4 @@ def get_dashboard():
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='192.168.1.180')
+    app.run(debug=True,host='192.168.1.101')
