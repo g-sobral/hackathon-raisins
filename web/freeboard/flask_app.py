@@ -29,19 +29,24 @@ def get_temperature():
     return jsonify(temperature)
 
 alarms = [False]*10
+alarmTimes = [0]*10
+
+@app.route('/disable/alarm/<int:alarm_id>', methods=['GET'])
+def disable_alarm(alarm_id):
+    alarms[alarm_id] = False
+    return ""
 
 @app.route('/get/alarm/<int:alarm_id>', methods=['GET'])
 def get_alarm(alarm_id):
-    return jsonify({'alarm' : {'ringing' : alarms[alarm_id]}})
+    return jsonify({'alarm' : {'ringing' : alarmTimes[alarm_id],
+        'enabled' : alarms[alarm_id]
+        }})
 
-@app.route('/set/alarm/<int:alarm_id>/<action>', methods=['GET'])
-def set_alarm(alarm_id,action):
-    if action == "ring":
-        alarms[alarm_id] = True
-        return "Alarm ringing."
-    else:
-        alarms[alarm_id] = False
-        return "Alarm not ringing."
+@app.route('/set/alarm/<int:alarm_id>/<time>', methods=['GET'])
+def set_alarm(alarm_id,time):
+    alarms[alarm_id] = True
+    alarmTimes[alarm_id] = int(time)
+    return ""
 
 @app.route('/dashboard', methods=['GET'])
 def get_dashboard():
