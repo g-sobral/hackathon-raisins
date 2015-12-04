@@ -3,10 +3,12 @@ from datetime import datetime, timedelta
 import urllib2
 
 s = sched.scheduler(time.time, time.sleep)
+ed = Edison()
 
 def notify(): 
 	urllib2.urlopen("http://192.168.1.129:5000/set/alarm/1/1").read()
-	urllib2.urlopen("http://192.168.1.129:5000/set/led/r").read()
+	
+	ed.turn_led_on('r')
 	# Check button
 	check_alarm()
 	return
@@ -16,9 +18,7 @@ def check_alarm():
 	# Keep pooling button
 	start = time.time()
 	prev = start
-	res = urllib2.urlopen("http://192.168.1.129:5000/get/button").read()
-	print res["button"]
-	while not intres["button"]:
+	while not read_button():
 		now = time.time()
 		late = now - start
 		ctrl = now - prev
@@ -27,7 +27,7 @@ def check_alarm():
 			urllib2.urlopen("http://192.168.1.129:5000/set/alarm/1/" + 
 str(int(late))).read()
 
-	urllib2.urlopen("http://192.168.1.129:5000/set/led/r").read()
+	ed.turn_led_off('r')
 	urllib2.urlopen("http://192.168.1.129:5000/set/alarm/1/-1").read()
 	return
 
