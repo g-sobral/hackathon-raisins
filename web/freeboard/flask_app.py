@@ -48,22 +48,22 @@ def set_alarm(alarm_id,time):
     return ""
 
 @app.route('/set/led/<led>', methods=['GET'])
-def set_alarm(led):
+def set_led(led):
     ed.turn_led_on(led)
     return 'ok'
 
 @app.route('/unset/led/<led>', methods=['GET'])
-def set_alarm(led):
+def unset_led(led):
     ed.turn_led_off(led)
     return 'ok'
 
 @app.route('/get/button', methods=['GET'])
-def set_alarm():
+def get_button():
     b = ed.read_button()
     return jsonify({'button': b})
 
 @app.route('/play/buzzer', methods=['GET'])
-def set_alarm():
+def play_buzzer():
     ed.play_buzzer()
     return "ok"
 
