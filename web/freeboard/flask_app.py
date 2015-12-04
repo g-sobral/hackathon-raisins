@@ -1,35 +1,32 @@
 #!flask/bin/python
 # from flask import Flask, jsonify, request, send_from_directory
 from flask import *
-import random
+from embedded import Edison
 
 app = Flask(__name__,static_folder='',static_url_path='')
 
-temperature = [
-            {
-            'temperature': "22."+str(random.randint(1, 9))+" C",
-            }
-        ]
-
-datahora = [
-        {
-        'time': 1,
-        'date': True,
-        'string': "Hello World"
-        }
-        ]
-
-# @app.route('/temperatura', methods=['GET'])
-# def get_tasks():
-    # return jsonify({'temp' : temperatura})
+ed = Edison()
 
 @app.route('/get/date', methods=['GET'])
 def get_data():
+    datahora = [
+            {
+                'time': 1,
+                'date': True,
+                'string': "Hello World"
+            }
+        ]
     return jsonify({'date' : datahora})
 
 @app.route('/get/temperature', methods=['GET'])
 def get_temperature():
-    return jsonify({'temperature' : temperature})
+    t = ed.read_temperature()
+    msg = [
+            {
+                'temperature': '%.2f C' % t,
+            }
+        ]
+    return jsonify(temperature)
 
 alarms = [False]*10
 
