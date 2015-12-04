@@ -1,8 +1,9 @@
 #!flask/bin/python
 # from flask import Flask, jsonify, request, send_from_directory
 from flask import *
+import random
 
-app = Flask(__name__)
+app = Flask(__name__,static_folder='',static_url_path='')
 
 tasks = [
         {
@@ -21,7 +22,7 @@ tasks = [
 
 temperature = [
             {
-            'temperature': 100,
+            'temperature': "22."+str(random.randint(1, 9))+" C",
             }
         ]
 
@@ -47,11 +48,11 @@ def get_temperature():
 
 @app.route('/dashboard', methods=['GET'])
 def get_dashboard():
-    # url_for('/freeboard')
-    # url_for('static', filename='freeboard')
-    return send_from_directory('freeboard','index.html')
-    # return app.send_static_file('freeboard/index.html')
+    # return send_from_directory('','index.html')
+    # return send_from_directory(app.static_folder, 'index.html')
+    return app.send_static_file('index.html')
+    # return url_for('static', filename='index.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='192.168.1.101')
+    app.run(debug=True,host='192.168.1.180')
