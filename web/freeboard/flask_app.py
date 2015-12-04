@@ -26,7 +26,7 @@ def get_temperature():
                 'temperature': '%.2f C' % t,
             }
         ]
-    return jsonify(msg)
+    return jsonify({'temperature':, msg})
 
 alarms = [False]*10
 alarmTimes = [0]*10
