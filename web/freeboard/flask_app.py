@@ -23,10 +23,10 @@ def get_temperature():
     t = ed.read_temperature()
     msg = [
             {
-                'temperature': '%.2f C' % t,
+                'temperature': '%.2f' % t,
             }
         ]
-    return jsonify({'temperature':, msg})
+    return jsonify({'temperature': msg})
 
 alarms = [False]*10
 alarmTimes = [0]*10
