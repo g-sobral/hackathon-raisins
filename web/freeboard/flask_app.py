@@ -5,21 +5,6 @@ import random
 
 app = Flask(__name__,static_folder='',static_url_path='')
 
-tasks = [
-        {
-            'id': 1,
-            'title': u'Buy groceries',
-            'description': u'Milk, Cheese, Pizza, Fruit, Tylenol',
-            'done': False
-            },
-        {
-            'id': 2,
-            'title': u'Learn Python',
-            'description': u'Need to find a good Python tutorial on the web',
-            'done': False
-            }
-        ]
-
 temperature = [
             {
             'temperature': "22."+str(random.randint(1, 9))+" C",
@@ -44,6 +29,10 @@ def get_data():
 
 @app.route('/get/temperature', methods=['GET'])
 def get_temperature():
+    return jsonify({'temperature' : temperature})
+
+@app.route('/get/alarm', methods=['GET'])
+def get_alarm():
     return jsonify({'temperature' : temperature})
 
 @app.route('/dashboard', methods=['GET'])
