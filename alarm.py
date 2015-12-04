@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 import urllib2
 
 s = sched.scheduler(time.time, time.sleep)
+ed = Edison()
+
 def notify(): 
 	urllib2.urlopen("http://192.168.1.129:5000/set/alarm/1/ring").read()
 
