@@ -5,7 +5,7 @@ from math import log
 
 class Edison:
 
-    def init(self):
+    def __init__(self):
 
         # configure leds
         led_pins = { 'r': 4, 'g': 3, 'b': 2 }
