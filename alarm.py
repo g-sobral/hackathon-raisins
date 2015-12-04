@@ -18,9 +18,10 @@ def check_alarm():
 	# Keep pooling button
 	now = time.time()
 	while not ed.read_button:
-        late = time.time() - now 
-        if late > 1:
-        	urllib2.urlopen("http://192.168.1.129:5000/set/alarm/1/" + str(late)).read()
+		late = time.time() - now 
+		if late > 1:
+			urllib2.urlopen("http://192.168.1.129:5000/set/alarm/1/" + str(late)).read()
+
 	ed.turn_led_off('r')
 	return
 
