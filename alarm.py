@@ -1,6 +1,7 @@
 import sched, time
 from datetime import datetime, timedelta
 import urllib2
+import Edison
 
 s = sched.scheduler(time.time, time.sleep)
 ed = Edison()
