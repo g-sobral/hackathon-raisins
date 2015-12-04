@@ -3,7 +3,7 @@ import mraa
 led_pins = { 'r': 4, 'g': 3, 'b': 2 }
 
 leds = {}
-for l, p in led_pins:
+for l, p in led_pins.iteritems():
     leds[l] = mraa.Gpio(p)
     leds[l].dir(mraa.DIR_OUT)
 
