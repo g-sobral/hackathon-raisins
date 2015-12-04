@@ -44,11 +44,11 @@ class Edison:
         return self.touch_button.read()
 
     def play_buzzer(self):
-        for i in range(3):
+        for i in range(5):
             self.buzzer.write(1)
             time.sleep(0.1)
             self.buzzer.write(0)
-            time.sleep(0.1)
+            time.sleep(0.3)
 
 
 # test
